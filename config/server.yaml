@@ -1,0 +1,89 @@
+# LegendServer 配置文件
+
+server:
+  name: "LegendServer"
+  version: "1.0.0"
+
+  # 网关配置
+  gateway:
+    host: "0.0.0.0"
+    port: 8888
+    max_connections: 10000
+    backlog: 1024
+
+  # 游戏服务器配置
+  game:
+    host: "0.0.0.0"
+    port: 8889
+    max_players: 5000
+
+  # 线程配置
+  threads:
+    io_threads: 4        # IO线程数
+    logic_threads: 8     # 逻辑线程数
+    db_threads: 2        # 数据库线程数
+
+  # 日志配置
+  log:
+    level: "info"        # trace, debug, info, warn, error
+    path: "./logs"
+    max_size: 104857600  # 100MB
+    max_files: 10
+    async: true
+
+# 数据库配置
+database:
+  mysql:
+    host: "127.0.0.1"
+    port: 3306
+    user: "legend"
+    password: "legend123"
+    database: "legend_db"
+    pool_size: 20
+    timeout: 5000        # ms
+
+  redis:
+    host: "127.0.0.1"
+    port: 6379
+    password: ""
+    db: 0
+    pool_size: 10
+    timeout: 3000        # ms
+
+# 游戏配置
+game:
+  # 角色配置
+  role:
+    max_name_length: 16
+    max_per_account: 3
+    default_hp: 100
+    default_mp: 100
+
+  # 战斗配置
+  battle:
+    max_rounds: 30
+    skill_cd_base: 1000  # ms
+
+  # 聊天配置
+  chat:
+    max_length: 256
+    world_cd: 5000       # 世界频道CD (ms)
+    private_cd: 1000     # 私聊CD (ms)
+
+  # 好友配置
+  friend:
+    max_count: 100
+
+  # 组队配置
+  team:
+    max_members: 5
+
+# 心跳配置
+heartbeat:
+  interval: 30000        # 心跳间隔 (ms)
+  timeout: 90000         # 超时时间 (ms)
+
+# 安全配置
+security:
+  aes_key: "legendserver2024"
+  token_expire: 86400    # Token过期时间 (s)

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package legend;
+
+// 聊天频道类型
+enum ChatChannelType {
+    CHAT_WORLD = 0;     // 世界频道
+    CHAT_PRIVATE = 1;   // 私聊
+    CHAT_TEAM = 2;      // 队伍频道
+    CHAT_GUILD = 3;     // 公会频道
+}
+
+// 聊天请求
+message ChatRequest {
+    ChatChannelType channel_type = 1;
+    int64 to_role_id = 2;   // 私聊目标
+    string content = 3;
+}
+
+// 聊天通知
+message ChatNotify {
+    ChatChannelType channel_type = 1;
+    int64 from_role_id = 2;
+    string from_name = 3;
+    int64 to_role_id = 4;
+    string content = 5;
+    int64 timestamp = 6;
+}
+
+// 聊天记录
+message ChatHistoryRequest {
+    ChatChannelType channel_type = 1;
+    int32 count = 2;
+    int64 before_time = 3;
+}
+
+message ChatHistoryResponse {
+    ResponseHeader header = 1;
+    repeated ChatNotify messages = 2;
+}

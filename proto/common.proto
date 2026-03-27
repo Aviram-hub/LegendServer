@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package legend;
+
+// 公共消息定义
+
+// 错误码
+enum ErrorCode {
+    SUCCESS = 0;
+    UNKNOWN_ERROR = 1;
+    INVALID_PARAM = 2;
+    INTERNAL_ERROR = 3;
+    TIMEOUT = 4;
+    NOT_FOUND = 5;
+
+    // 登录错误 100-199
+    ACCOUNT_NOT_FOUND = 100;
+    PASSWORD_ERROR = 101;
+    ACCOUNT_BANNED = 102;
+    ALREADY_LOGIN = 103;
+    TOKEN_EXPIRED = 104;
+    SERVER_FULL = 105;
+
+    // 角色错误 200-299
+    ROLE_NOT_FOUND = 200;
+    ROLE_NAME_EXISTS = 201;
+    ROLE_LIMIT_REACHED = 202;
+    ROLE_LEVEL_LIMIT = 203;
+
+    // 战斗错误 300-399
+    BATTLE_NOT_FOUND = 300;
+    SKILL_NOT_LEARNED = 301;
+    SKILL_COOLDOWN = 302;
+    MP_NOT_ENOUGH = 303;
+    TARGET_NOT_IN_RANGE = 304;
+}
+
+// 通用响应头
+message ResponseHeader {
+    ErrorCode code = 1;
+    string message = 2;
+}
+
+// 心跳消息
+message HeartBeat {
+    int64 timestamp = 1;
+}
+
+message HeartBeatResponse {
+    int64 timestamp = 1;
+    int64 server_time = 2;
+}

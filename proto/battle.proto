@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package legend;
+
+// 战斗开始请求
+message BattleStartRequest {
+    int64 battle_type = 1;  // 战斗类型
+    repeated int64 attacker_ids = 2;
+    repeated int64 defender_ids = 3;
+}
+
+// 战斗开始响应
+message BattleStartResponse {
+    ResponseHeader header = 1;
+    int64 battle_id = 2;
+    int32 max_rounds = 3;
+}
+
+// 技能施放请求
+message SkillCastRequest {
+    int64 battle_id = 1;
+    int32 skill_id = 2;
+    int64 target_id = 3;
+}
+
+// 技能施放通知
+message SkillCastNotify {
+    int64 battle_id = 1;
+    int64 caster_id = 2;
+    int32 skill_id = 3;
+    int64 target_id = 4;
+    int32 damage = 5;
+    int32 target_hp = 6;
+    bool is_critical = 7;
+}
+
+// 战斗结束通知
+message BattleEndNotify {
+    int64 battle_id = 1;
+    int32 result = 2;  // 0失败, 1胜利
+    repeated int64 survivors = 3;
+    BattleReward reward = 4;
+}
+
+// 战斗奖励
+message BattleReward {
+    int64 exp = 1;
+    int64 gold = 2;
+    repeated ItemReward items = 3;
+}
+
+// 物品奖励
+message ItemReward {
+    int32 item_id = 1;
+    int32 count = 2;
+}
+
+// 战斗回合开始通知
+message BattleRoundStartNotify {
+    int64 battle_id = 1;
+    int32 round = 2;
+    repeated BattleUnit units = 3;
+}
+
+// 战斗单位
+message BattleUnit {
+    int64 role_id = 1;
+    string name = 2;
+    int32 hp = 3;
+    int32 hp_max = 4;
+    int32 mp = 5;
+    int32 mp_max = 6;
+    int32 position = 7;  // 阵营位置
+}

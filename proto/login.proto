@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package legend;
+
+// 登录请求
+message LoginRequest {
+    string account = 1;      // 账号
+    string password = 2;     // 密码
+    string device_id = 3;    // 设备ID
+    string version = 4;      // 客户端版本
+}
+
+// 登录响应
+message LoginResponse {
+    ResponseHeader header = 1;
+    int64 account_id = 2;    // 账号ID
+    string token = 3;        // 登录令牌
+    int64 expire_time = 4;   // 过期时间
+    repeated int64 role_ids = 5;  // 角色ID列表
+}
+
+// 登出请求
+message LogoutRequest {
+    int64 account_id = 1;
+}
+
+// Token验证请求
+message VerifyTokenRequest {
+    string token = 1;
+    int64 account_id = 2;
+}
+
+// Token验证响应
+message VerifyTokenResponse {
+    ResponseHeader header = 1;
+    bool valid = 2;
+}

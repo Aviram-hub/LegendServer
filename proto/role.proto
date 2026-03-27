@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package legend;
+
+// 角色信息
+message RoleInfo {
+    int64 role_id = 1;
+    string role_name = 2;
+    int32 level = 3;
+    int64 exp = 4;
+    int32 profession = 5;
+    int32 gender = 6;
+    int32 hp = 7;
+    int32 mp = 8;
+    int64 gold = 9;
+    int32 diamond = 10;
+}
+
+// 角色属性
+message RoleAttribute {
+    int32 attack = 1;
+    int32 defense = 2;
+    int32 speed = 3;
+    float critical_rate = 4;
+    float critical_damage = 5;
+    int32 hp_max = 6;
+    int32 mp_max = 7;
+}
+
+// 创建角色请求
+message CreateRoleRequest {
+    string role_name = 1;
+    int32 profession = 2;  // 职业: 0战士, 1法师, 2弓手
+    int32 gender = 3;      // 性别: 0男, 1女
+}
+
+// 创建角色响应
+message CreateRoleResponse {
+    ResponseHeader header = 1;
+    RoleInfo role_info = 2;
+}
+
+// 角色信息请求
+message RoleInfoRequest {
+    int64 role_id = 1;
+}
+
+// 角色信息响应
+message RoleInfoResponse {
+    ResponseHeader header = 1;
+    RoleInfo role_info = 2;
+    RoleAttribute attribute = 3;
+}
+
+// 角色列表请求
+message RoleListRequest {
+    int64 account_id = 1;
+}
+
+// 角色列表响应
+message RoleListResponse {
+    ResponseHeader header = 1;
+    repeated RoleInfo roles = 2;
+}
+
+// 选择角色请求
+message SelectRoleRequest {
+    int64 role_id = 1;
+}
+
+// 选择角色响应
+message SelectRoleResponse {
+    ResponseHeader header = 1;
+    RoleInfo role_info = 2;
+}
+
+// 角色属性更新通知
+message RoleAttributeUpdateNotify {
+    int64 role_id = 1;
+    map<string, int64> attributes = 2;  // 属性名 -> 新值
+}
