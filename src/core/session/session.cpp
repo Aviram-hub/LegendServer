@@ -4,6 +4,7 @@
  */
 
 #include "session.h"
+#include "core/message/message.h"
 
 namespace legend {
 

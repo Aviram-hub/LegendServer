@@ -12,7 +12,11 @@ cmake .. && make -j$(nproc)
 # Run the server
 ./legend_server -c ../config/server.yaml
 
-# Run tests
+# Run tests (via CTest)
+cd build
+ctest --output-on-failure
+
+# Run individual tests
 ./test_thread_pool
 ./test_mysql_pool
 ```
@@ -36,7 +40,7 @@ LegendServer is a high-performance MMORPG game server using C++17/Lua hybrid arc
 
 ### Key Patterns
 
-- **Message Handling**: Register handlers via `MessageDispatcher::registerHandler(msgId, handler)`
+- **Message Handling**: Use `REGISTER_HANDLER(msgId, handler)` macro to register message handlers at static initialization time
 - **Database Access**: Use `MySQLConnectionGuard` for RAII-style connection management
 - **Lua Integration**: Load scripts via `LuaEngine::loadScript()`, call functions via `LuaEngine::callFunction()`
 - **Threading**: Use `ThreadPool::submit()` for async tasks, `EventLoop::runInLoop()` for cross-thread dispatch
@@ -62,11 +66,34 @@ Nine-grid algorithm in `src/game/scene/aoi.h`:
 
 ## Configuration
 
-Server config loaded from YAML at `config/server.yaml`. Database connections, thread counts, and game parameters are configurable.
+Server config loaded from YAML at `config/server.yaml`. Key sections:
+- `server.gateway`/`server.game`: Network ports and connection limits
+- `server.threads`: IO/logic/DB thread counts
+- `database.mysql`/`database.redis`: Connection pool settings
+- `game.*`: Game-specific parameters (role limits, battle rounds, chat cooldowns)
 
 ## Dependencies
 
-- Lua 5.4 (third_party/lua)
-- spdlog (third_party/spdlog)
-- yaml-cpp (third_party/yaml-cpp)
-- Protobuf, MySQL client, hiredis (system packages)
+System packages (apt install):
+- lua5.4, liblua5.4-dev
+- libprotobuf-dev, protobuf-compiler
+- libyaml-cpp-dev
+- libspdlog-dev
+- libmysqlclient-dev
+- libhiredis-dev
+
+## Code Conventions
+
+- **Namespace**: All code under `legend` namespace
+- **Types**: Use type aliases from `common/base/types.h` (String, Vector, HashMap, Ptr, UniquePtr, etc.)
+- **Base class**: Inherit from `NonCopyable` to disable copy semantics
+- **Singleton**: Use `Singleton<T>::instance()` for singleton access
+- **Naming**: PascalCase for classes/types, camelCase for functions/variables, UPPER_CASE for constants
+
+## Server Lifecycle
+
+1. `main.cpp` creates `EventLoop` and `Server`
+2. `Server::init()` initializes database pools and Lua engine
+3. `Server::start()` starts gateway and game server listeners
+4. Event loop runs until SIGINT/SIGTERM received
+5. `EventLoop::quit()` triggers graceful shutdown

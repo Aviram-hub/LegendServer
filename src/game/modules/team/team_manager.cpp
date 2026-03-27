@@ -4,6 +4,7 @@
  */
 
 #include "team_manager.h"
+#include "team_module.h"
 
 namespace legend {
 

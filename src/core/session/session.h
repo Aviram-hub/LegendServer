@@ -5,12 +5,15 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include "common/network/connection.h"
 #include <memory>
 
 namespace legend {
+
+// 前向声明
+class Message;
 
 /**
  * @brief 会话状态

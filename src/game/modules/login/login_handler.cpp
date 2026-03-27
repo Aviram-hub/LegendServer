@@ -13,14 +13,19 @@ LoginHandler::LoginHandler() = default;
 LoginHandler::~LoginHandler() = default;
 
 void LoginHandler::handleLoginRequest(Session* session, const Message& msg) {
+    (void)session;
+    (void)msg;
     // 处理登录请求
 }
 
 void LoginHandler::handleLogoutRequest(Session* session, const Message& msg) {
+    (void)session;
+    (void)msg;
     // 处理登出请求
 }
 
 void LoginHandler::handleHeartbeat(Session* session, const Message& msg) {
+    (void)msg;
     if (session) {
         session->updateHeartbeat();
     }

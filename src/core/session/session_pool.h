@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include "session.h"
 #include "common/thread/mutex.h"
 #include <vector>

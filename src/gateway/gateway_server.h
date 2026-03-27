@@ -5,15 +5,17 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include "common/base/buffer.h"
+#include "common/network/address.h"
+#include "common/network/connection.h"
 #include "gateway_config.h"
 #include "core/reactor/event_loop.h"
 #include <unordered_map>
 
 namespace legend {
 
-class Connection;
 class Channel;
 
 /**
@@ -34,7 +36,7 @@ private:
     void onMessage(const Ptr<Connection>& conn, Buffer& buffer, int64 receiveTime);
 
     EventLoop* loop_;
-    GatewayConfig config_;
+    const GatewayConfig& config_;
 
     int listenFd_;
     UniquePtr<Channel> listenChannel_;

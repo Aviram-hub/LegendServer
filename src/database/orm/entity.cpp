@@ -51,6 +51,8 @@ bool Entity::save(MySQLConnection& conn) {
 }
 
 bool Entity::load(MySQLConnection& conn, int64 id) {
+    (void)conn;
+    (void)id;
     // 子类实现
     return false;
 }

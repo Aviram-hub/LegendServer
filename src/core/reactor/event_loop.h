@@ -5,9 +5,10 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
-#include "mutex.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include "common/thread/mutex.h"
+#include "common/timer/timer_manager.h"
 #include <atomic>
 #include <functional>
 #include <vector>
@@ -17,7 +18,6 @@ namespace legend {
 class Channel;
 class EpollPoller;
 class Timer;
-class TimerId;
 
 /**
  * @brief 事件循环类
@@ -80,8 +80,6 @@ private:
 
     void printActiveChannels() const;
 
-    using ChannelList = std::vector<Channel*>;
-
     std::atomic<bool> looping_;
     std::atomic<bool> quit_;
     std::atomic<bool> eventHandling_;
@@ -103,22 +101,6 @@ private:
     std::vector<Functor> pendingFunctors_;
 
     static pid_t currentTid();
-};
-
-/**
- * @brief 定时器ID
- */
-class TimerId {
-public:
-    TimerId() : timer_(nullptr), sequence_(0) {}
-    TimerId(Timer* timer, int64 seq)
-        : timer_(timer), sequence_(seq) {}
-
-    friend class EventLoop;
-
-private:
-    Timer* timer_;
-    int64 sequence_;
 };
 
 } // namespace legend

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "noncopyable.h"
+#include "common/base/noncopyable.h"
 #include <memory>
 #include <mutex>
 

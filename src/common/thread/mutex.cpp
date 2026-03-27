@@ -3,7 +3,7 @@
  * @brief 互斥锁实现
  */
 
-#include "mutex.h"
+#include "common/thread/mutex.h"
 
 // 大部分实现都在头文件中，这里只保留编译单元
 namespace legend {

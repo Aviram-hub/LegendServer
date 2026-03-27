@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include "core/server/server_config.h"
 #include "lua/lua_engine.h"
 #include "database/mysql/mysql_connection_pool.h"
@@ -37,7 +37,7 @@ public:
 
 private:
     EventLoop* loop_;
-    ServerConfig config_;
+    const ServerConfig& config_;
 
     UniquePtr<LuaEngine> luaEngine_;
     UniquePtr<MySQLConnectionPool> mysqlPool_;

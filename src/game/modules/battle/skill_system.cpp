@@ -57,6 +57,7 @@ int32 SkillSystem::calculateDamage(const SkillConfig& skill, int32 attack, int32
 }
 
 int32 SkillSystem::calculateHeal(const SkillConfig& skill, int32 magic) {
+    (void)skill;
     return static_cast<int32>(magic * 0.5f);
 }
 

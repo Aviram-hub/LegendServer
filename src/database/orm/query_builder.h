@@ -5,9 +5,9 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
-#include "mysql_connection.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include "database/mysql/mysql_connection.h"
 #include <sstream>
 
 namespace legend {
@@ -86,7 +86,7 @@ private:
     String limitClause_;
     String offsetClause_;
     HashMap<String, MySQLParam> data_;
-    std::vector<MySQLParam> params_;
+    mutable std::vector<MySQLParam> params_;
 };
 
 } // namespace legend

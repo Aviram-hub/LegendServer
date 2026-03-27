@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # 编译选项
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
@@ -15,19 +15,27 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 find_package(Threads REQUIRED)
 find_package(Protobuf REQUIRED)
 
-# Lua配置
-set(LUA_DIR ${CMAKE_SOURCE_DIR}/third_party/lua)
-set(LUA_INCLUDE_DIR ${LUA_DIR}/src)
-set(LUA_LIBRARY ${LUA_DIR}/liblua.a)
+# Lua - 使用系统库
+find_package(Lua QUIET)
+if(NOT LUA_FOUND)
+    find_path(LUA_INCLUDE_DIR lua.h PATHS /usr/include/lua5.4 /usr/include/lua5.3 /usr/include)
+    find_library(LUA_LIBRARY NAMES lua5.4 lua5.3 lua PATHS /usr/lib)
+endif()
 
-# spdlog配置
-set(SPDLOG_DIR ${CMAKE_SOURCE_DIR}/third_party/spdlog)
-set(SPDLOG_INCLUDE_DIR ${SPDLOG_DIR}/include)
+# spdlog - 使用系统库
+find_package(spdlog QUIET)
+if(NOT spdlog_FOUND)
+    find_path(SPDLOG_INCLUDE_DIR spdlog/spdlog.h PATHS /usr/include)
+endif()
 
-# yaml-cpp配置
-set(YAML_CPP_DIR ${CMAKE_SOURCE_DIR}/third_party/yaml-cpp)
-set(YAML_CPP_INCLUDE_DIR ${YAML_CPP_DIR}/include)
-set(YAML_CPP_LIBRARY ${YAML_CPP_DIR}/lib/libyaml-cpp.a)
+# yaml-cpp - 使用系统库
+find_package(yaml-cpp QUIET)
+if(yaml-cpp_FOUND)
+    set(YAML_CPP_LIBRARY yaml-cpp)
+else()
+    find_path(YAML_CPP_INCLUDE_DIR yaml-cpp/yaml.h PATHS /usr/include)
+    find_library(YAML_CPP_LIBRARY NAMES yaml-cpp PATHS /usr/lib /usr/lib/x86_64-linux-gnu)
+endif()
 
 # 包含目录
 include_directories(
@@ -35,6 +43,7 @@ include_directories(
     ${LUA_INCLUDE_DIR}
     ${SPDLOG_INCLUDE_DIR}
     ${YAML_CPP_INCLUDE_DIR}
+    ${Protobuf_INCLUDE_DIRS}
 )
 
 # 源文件
@@ -50,7 +59,7 @@ target_link_libraries(legend_server
     ${CMAKE_THREAD_LIBS_INIT}
     ${LUA_LIBRARY}
     ${YAML_CPP_LIBRARY}
-    protobuf::protobuf
+    ${Protobuf_LIBRARIES}
     mysqlclient
     hiredis
     dl

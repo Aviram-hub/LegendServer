@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "types.h"
+#include "common/base/types.h"
 #include "database/orm/entity.h"
 
 namespace legend {

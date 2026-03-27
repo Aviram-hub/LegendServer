@@ -7,6 +7,7 @@
 #include "core/reactor/event_loop.h"
 #include "core/reactor/channel.h"
 #include <sys/uio.h>
+#include <unistd.h>
 
 namespace legend {
 

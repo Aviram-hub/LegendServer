@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include "timer.h"
-#include "mutex.h"
+#include "common/thread/mutex.h"
 #include <set>
 #include <vector>
 

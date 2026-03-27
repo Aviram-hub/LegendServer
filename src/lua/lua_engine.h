@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include <lua.hpp>
 #include <functional>
 

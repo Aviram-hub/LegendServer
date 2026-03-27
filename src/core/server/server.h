@@ -5,8 +5,9 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include "common/base/buffer.h"
 #include "server_config.h"
 #include "common/network/address.h"
 #include "common/thread/thread_pool.h"
@@ -50,7 +51,7 @@ private:
     void onMessage(const Ptr<Connection>& conn, Buffer& buffer, int64 receiveTime);
 
     EventLoop* loop_;
-    ServerConfig config_;
+    const ServerConfig& config_;
 
     UniquePtr<ThreadPool> threadPool_;
 

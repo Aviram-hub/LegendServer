@@ -3,7 +3,8 @@
  * @brief MySQL连接实现
  */
 
-#include "mysql_connection.h"
+#include "database/mysql/mysql_connection.h"
+#include "database/mysql/mysql_statement.h"
 #include <cstring>
 
 namespace legend {

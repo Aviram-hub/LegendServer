@@ -7,9 +7,11 @@
 #include "core/reactor/channel.h"
 #include "common/network/socket.h"
 #include "common/network/address.h"
+#include "common/network/connection.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <cstring>
 
 namespace legend {
 

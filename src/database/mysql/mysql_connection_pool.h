@@ -5,9 +5,9 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
-#include "mysql_connection.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include "database/mysql/mysql_connection.h"
 #include "common/thread/mutex.h"
 #include "common/thread/condition.h"
 #include <queue>

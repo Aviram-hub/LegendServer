@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include <vector>
 #include <sys/epoll.h>
 
@@ -21,6 +21,11 @@ class Channel;
 class EpollPoller : public NonCopyable {
 public:
     using ChannelList = std::vector<Channel*>;
+
+    // Channel 状态常量
+    static const int kNew = -1;
+    static const int kAdded = 1;
+    static const int kDeleted = 2;
 
     EpollPoller(EventLoop* loop);
     ~EpollPoller();

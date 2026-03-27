@@ -15,6 +15,7 @@
 #include <memory>
 #include <functional>
 #include <chrono>
+#include <atomic>
 
 namespace legend {
 

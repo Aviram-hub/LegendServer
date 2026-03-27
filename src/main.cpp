@@ -3,7 +3,7 @@
  * @brief LegendServer 主入口
  */
 
-#include "types.h"
+#include "common/base/types.h"
 #include "core/reactor/event_loop.h"
 #include "core/server/server.h"
 #include "core/server/server_config.h"

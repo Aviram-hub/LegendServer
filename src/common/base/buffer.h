@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include <cstring>
 #include <algorithm>
 
@@ -157,6 +157,12 @@ public:
         return result;
     }
 
+    // 读取字节到缓冲区
+    void readBytes(void* dest, size_t len) {
+        ::memcpy(dest, peek(), len);
+        retrieve(len);
+    }
+
     // 读取uint32
     uint32 readUInt32() {
         uint32 result = 0;
@@ -209,6 +215,9 @@ public:
     const char* data() const {
         return buffer_.data();
     }
+
+    // 从文件描述符读取数据
+    ssize_t readFd(int fd, int* savedErrno);
 
 private:
     char* begin() {

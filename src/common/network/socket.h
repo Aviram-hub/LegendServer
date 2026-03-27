@@ -5,8 +5,9 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
+#include <netinet/in.h>
 
 namespace legend {
 
@@ -38,6 +39,13 @@ public:
 
     // 关闭socket
     void close();
+
+    // 释放所有权，返回socket fd
+    int release() {
+        int fd = sockfd_;
+        sockfd_ = -1;
+        return fd;
+    }
 
     // 设置TCP_NODELAY (禁用Nagle算法)
     bool setTcpNoDelay(bool on = true);

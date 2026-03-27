@@ -5,13 +5,16 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include "session.h"
 #include "common/thread/mutex.h"
 #include <unordered_map>
 
 namespace legend {
+
+// 前向声明
+class Message;
 
 /**
  * @brief 会话管理器

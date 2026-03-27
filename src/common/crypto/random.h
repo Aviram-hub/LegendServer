@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "types.h"
+#include "common/base/types.h"
 #include <random>
 
 namespace legend {
@@ -65,6 +65,9 @@ public:
 
     static String nextString(size_t len) { return instance().nextString(len); }
     static String nextHexString(size_t len) { return instance().nextHexString(len); }
+
+    static void nextBytes(void* buffer, size_t len) { instance().nextBytes(buffer, len); }
+    static String nextBytes(size_t len) { return instance().nextBytes(len); }
 
     static String uuid() { return instance().uuid(); }
 };

@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "buffer.h"
+#include "common/base/types.h"
+#include "common/base/buffer.h"
 #include <sstream>
 
 namespace legend {

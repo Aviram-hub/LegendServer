@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include <functional>
 
 namespace legend {
@@ -83,6 +83,7 @@ public:
 
 private:
     void update();
+    void handleEventWithGuard(int64 receiveTime);
 
     EventLoop* loop_;
     int fd_;
@@ -91,6 +92,8 @@ private:
     int index_;
 
     bool tied_;
+    bool eventHandling_;
+    bool addedToLoop_;
     WeakPtr<void> tie_;
 
     ReadEventCallback readCallback_;

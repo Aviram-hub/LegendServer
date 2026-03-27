@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "types.h"
-#include "noncopyable.h"
+#include "common/base/types.h"
+#include "common/base/noncopyable.h"
 #include <mysql/mysql.h>
 #include <string>
 #include <vector>
@@ -93,6 +93,7 @@ public:
 
 private:
     friend class MySQLConnection;
+    friend class MySQLStatement;
 
     void setResult(MYSQL_RES* result);
     void fetchFields();

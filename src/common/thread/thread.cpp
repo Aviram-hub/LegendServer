@@ -4,9 +4,11 @@
  */
 
 #include "thread.h"
+#include "condition.h"
 #include <sys/syscall.h>
 #include <unistd.h>
 #include <cstring>
+#include <cassert>
 
 namespace legend {
 
@@ -102,7 +104,7 @@ void Thread::start() {
     data->tid = &tid_;
 
     auto latch = makePtr<CountDownLatch>(1);
-    data->l = latch.get();
+    data->latch = latch.get();
 
     if (pthread_create(&pthreadId_, nullptr, threadRoutine, data) != 0) {
         started_ = false;
